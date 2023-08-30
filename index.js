@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import bodyParser from 'body-parser';
-import {authorize,redirect} from './webexHelper.js';
+import {authorize,redirect,createMeeting} from './webexHelper.js';
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
@@ -18,7 +18,10 @@ app.get('/api/authorize/webex',async(req,res)=>{
 
 app.get('/api/webex/redirect', async(req,res)=>{
     return res.json(redirect(req.query.code));
-});
+})
+
+createMeeting();
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
