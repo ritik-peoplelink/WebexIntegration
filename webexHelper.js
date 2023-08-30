@@ -27,9 +27,10 @@ const redirect = async(code) => {
 
 const createMeeting = async()=>
 {
-    const create_meeting_url = "https://webexapis.com/v1/meetings"
+    const create_meeting_url = "https://webexapis.com/v1/meetings";
+    const accessToken = 'MzY0Y2Y5ZGUtYzRiZC00ZWFlLTg2NTYtNzQ2MjA2OTZlZjFiOWQ5NWZjMmUtZmQ5_P0A1_d753f5ed-fc6f-453b-b80d-9eed175c690b';
     const headers = {
-        "Authorization": 'Bearer MzY0Y2Y5ZGUtYzRiZC00ZWFlLTg2NTYtNzQ2MjA2OTZlZjFiOWQ5NWZjMmUtZmQ5_P0A1_d753f5ed-fc6f-453b-b80d-9eed175c690b'
+        "Authorization": `Bearer ${accessToken}`
     }
     const meetingdata = {
         "title": "My Webex Meeting",
