@@ -25,12 +25,33 @@ const redirect = async(code) => {
     return data;
 }
 
+const refreshToken = async()=>{
+    let tokenUri = 'https://webexapis.com/v1/access_token';
+    let payload = {
+        'grant_type' : 'refresh_token',
+        'client_id' : process.env.WEBEX_CLIENT_ID,
+        'client_secret' : process.env.WEBEX_CLIENT_SECRET,
+        'refresh_token' : process.env.WEBEX_REFRESH_TOKEN
+    }
+    const headers = {
+        'Content-Type' : 'application/x-www-form-urlencoded',
+    }
+    data = await axios.post(tokenUri,payload,{headers}).then(response => {
+        return response;
+    }).catch(e => {
+        return e;
+    })
+    console.log("Refresh Token Data :::::::::::",data);
+    return data;
+}
+
 const createMeeting = async()=>
 {
     const create_meeting_url = "https://webexapis.com/v1/meetings";
-    const accessToken = 'MzY0Y2Y5ZGUtYzRiZC00ZWFlLTg2NTYtNzQ2MjA2OTZlZjFiOWQ5NWZjMmUtZmQ5_P0A1_d753f5ed-fc6f-453b-b80d-9eed175c690b';
+    const accessToken = 'NmRiZjFhNjgtZjZjNi00MjM5LWFmMmItNDQ3YzNhOWYwYmY3MDQyYTg5NjItZDg5_P0A1_342420d7-2b99-440d-92ed-a5be68dea216';
     const headers = {
-        "Authorization": `Bearer ${accessToken}`
+        Authorization: `Bearer ${accessToken}`, 
+        'Content-Type': 'application/json', 
     }
     const meetingdata = {
         "title": "My Webex Meeting",
@@ -51,4 +72,4 @@ const createMeeting = async()=>
     return responseData;
 }
 
-export {authorize,redirect,createMeeting};
+export {authorize,redirect,createMeeting,refreshToken};

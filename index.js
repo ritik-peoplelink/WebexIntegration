@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import bodyParser from 'body-parser';
-import {authorize,redirect,createMeeting} from './webexHelper.js';
+import {authorize,redirect,createMeeting,refreshToken} from './webexHelper.js';
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
@@ -20,7 +20,13 @@ app.get('/api/webex/redirect', async(req,res)=>{
     return res.json(redirect(req.query.code));
 })
 
-createMeeting();
+app.get('/api/webex/refresh_token',async(req,res)=>{
+    return res.json(refreshToken());
+})
+
+
+
+// createMeeting();
 
 
 app.listen(port, () => {
