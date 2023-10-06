@@ -48,7 +48,7 @@ const refreshToken = async()=>{
 const createMeeting = async()=>
 {
     const create_meeting_url = "https://webexapis.com/v1/meetings";
-    const accessToken = 'NmRiZjFhNjgtZjZjNi00MjM5LWFmMmItNDQ3YzNhOWYwYmY3MDQyYTg5NjItZDg5_P0A1_342420d7-2b99-440d-92ed-a5be68dea216';
+    const accessToken = 'OTQ2YzYzMjctNDdlNy00YTEzLWI2M2YtMzczMmYxY2Q4ZDc2MzNlYjM0OTUtMTVi_P0A1_d753f5ed-fc6f-453b-b80d-9eed175c690b';
     const headers = {
         Authorization: `Bearer ${accessToken}`, 
         'Content-Type': 'application/json', 
@@ -60,7 +60,6 @@ const createMeeting = async()=>
         "agenda": "Discuss project updates",
         "enabledAutoRecordMeeting": false,
         "allowAnyUserToBeCoHost": false,
-        "password": "Admins@1234",
         "timezone": "America/New_York"
     }
     const responseData = await axios.post(create_meeting_url,meetingdata,{headers}).then(response => {
@@ -72,4 +71,21 @@ const createMeeting = async()=>
     return responseData;
 }
 
-export {authorize,redirect,createMeeting,refreshToken};
+const getUserDetails = async() => {
+    const webexApiBaseUrl = 'https://api.ciscospark.com/v1';
+    const adminAccesToken = 'MWEwMTY4YTAtNWM1NS00M2MzLTgzZWMtZGFmZWM2NzFmNjk1OWQ4YWMyNTgtNzBk_P0A1_d753f5ed-fc6f-453b-b80d-9eed175c690b';
+    const headers = {
+        Authorization: `Bearer ${adminAccesToken}`
+    }
+    try{
+        const userData = await axios.get(`${webexApiBaseUrl}/people/me`,{headers})
+        console.log("Webex User Data ::::",userData);
+        return userData;
+    }
+    catch(e)
+    {
+        console.log("Error : ",e);
+    }
+}
+
+export {authorize,redirect,createMeeting,refreshToken,getUserDetails};
